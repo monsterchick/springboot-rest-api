@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MonsterShop Demo</title>
+</head>
+<body>
+  <h1>添加产品</h1>
+  <input id="productName" placeholder="输入产品名称"/>
+  <button onclick="addProduct()">提交</button>
+
+  <h2>产品列表</h2>
+  <ul id="productList"></ul>
+
+  <script>
+    async function addProduct() {
+      const name = document.getElementById("productName").value;
+      await fetch("/api/products", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ name })
+      });
+      loadProducts();
+    }
+
+    async function loadProducts() {
+      const res = await fetch("/api/products");
+      const products = await res.json();
+      const list = document.getElementById("productList");
+      list.innerHTML = "";
+      products.forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = p.name;
+        list.appendChild(li);
+      });
+    }
+
+    loadProducts();
+  </script>
+</body>
+</html>
