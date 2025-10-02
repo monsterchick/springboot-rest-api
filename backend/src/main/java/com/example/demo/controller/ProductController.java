@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+// 因为前端运行在 http://localhost:3000，后端在 http://localhost:8080，必须允许跨域请求。
+@CrossOrigin(origins = "http://localhost:3000") 
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
