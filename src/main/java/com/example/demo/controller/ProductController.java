@@ -26,4 +26,10 @@ public class ProductController {
     public Product add(@RequestBody Product product) {
         return repo.save(product);
     }
+
+    // 删除产品
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        repo.deleteById(id);
+    }
 }
